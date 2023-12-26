@@ -1,0 +1,31 @@
+from selenium.webdriver.common.by import By
+
+from_field = (By.ID, 'from')
+to_field = (By.ID, 'to')
+mode_button = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[1]/div[1]/div[3]')
+order_a_taxi = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[1]/div[3]/div[1]/button')
+rate_selection = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]')
+phone_number_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[1]')
+enter_phone_number = (By.ID, 'phone')
+text_enter_phone_number = (By.XPATH, '//*[@id="root"]/div/div[1]/div[2]/div[1]/form/div[1]/div[1]/label')
+save_phone_number = (By.XPATH, '//*[@id="root"]/div/div[1]/div[2]/div[1]/form/div[2]/button')
+order_taxi_button = (By.XPATH, '//*[@id="root"]/div/div[3]/div[4]/button')
+text_order_taxi = (By.XPATH, '//*[@id="root"]/div/div[3]/div[4]/button/span[1]')
+text_enter_code = (By.XPATH, '//*[@id="root"]/div/div[1]/div[2]/div[2]/form/div[1]/div[1]')
+click_enter_code = (By.ID, 'code')
+save_code_button = (By.XPATH, '//*[@id="root"]/div/div[1]/div[2]/div[2]/form/div[2]/button[1]')
+way_to_pay = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[2]')
+add_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]/div[3]/div')
+number_card = (By.ID, 'number')
+code_card = (By.CSS_SELECTOR, '#code.card-input')
+button_save_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[2]/form/div[3]/button[1]')
+new_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]')
+close_way_to_pay = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/button')
+comment_to_the_driver = (By.CSS_SELECTOR, '#comment.input')
+container_blankets_and_scarves = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div')
+activate_switch_blankets_and_scarves = (
+By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div')
+container_ice_cream = (
+By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div')
+add_ice_cream = (By.XPATH,
+                 '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]')

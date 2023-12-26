@@ -15,8 +15,12 @@ El objetivo de este proyecto es garantizar la funcionalidad correcta de la aplic
 - Para instalar pytest usa el siguiente comando: pip install pytest
 - Para instalar la libreria requests usa el siguiente comando: pip install requests. (si tienes algun inconveniente, utiliza pip3 en vez de pip)
 - En el archivo "data.py" se puede cambiar la URL del servidor ce tripleten en caso de que haya caducado.
-- Ejecuta todas las pruebas desde el archivo main.py
+- En el archivo "selector.py" se encuentran los selectores utilizados
+- En el archivo "UrbanRoutesPage.py" se encuentran los metodos para la clase urbanroutespage
+- Ejecuta todas las pruebas desde el archivo TestUrbanRoutes.py
 - Si ejecutas las pruebas desde consola, debes utilizar el comando pytest en el directorio que contiene el archivo de prueba
+
+
 
 
 
