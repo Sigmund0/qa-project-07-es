@@ -1,4 +1,3 @@
-
 import data
 from UrbanRoutesPage import UrbanRoutesPage
 from selenium import webdriver
@@ -9,8 +8,8 @@ from selenium.webdriver.chrome.options import Options
 import time
 import selector
 
-class TestUrbanRoutes:
 
+class TestUrbanRoutes:
     driver = None
 
     @classmethod
@@ -24,7 +23,6 @@ class TestUrbanRoutes:
         self.driver.get(data.urban_routes_url)
         self.routes_page = UrbanRoutesPage(self.driver)
 
-
     def configure_address(self):
         address_from = data.address_from
         address_to = data.address_to
@@ -32,6 +30,7 @@ class TestUrbanRoutes:
         self.routes_page.set_route(address_from, address_to)
         assert self.routes_page.get_from() == address_from
         assert self.routes_page.get_to() == address_to
+
     def select_comfort_rate(self):
         self.configure_address()
         self.routes_page.check_mode_button_in_is_enabled()
@@ -40,9 +39,11 @@ class TestUrbanRoutes:
         self.routes_page.check_text_mode_button()
         self.routes_page.click_mode_button()
         self.routes_page.check_order_a_taxi_button_is_enabled()
+        assert self.routes_page.is_order_taxi_button_enabled()
         self.routes_page.check_text_order_a_taxi_button()
         self.routes_page.click_order_a_taxi_button()
         self.routes_page.check_rate_selection_is_enabled()
+        assert self.routes_page.is_rate_selection_enabled()
         self.routes_page.check_text_rate_selection()
         self.routes_page.click_rate_selection()
 
@@ -52,6 +53,7 @@ class TestUrbanRoutes:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[1]')))
         self.routes_page.check_phone_number_field_is_enabled()
+        assert self.routes_page.is_phone_number_field_enabled()
         self.routes_page.check_text_phone_number_field()
         self.routes_page.click_phone_number_field()
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(selector.phone_number_field))
@@ -73,6 +75,7 @@ class TestUrbanRoutes:
         add_code_card = data.card_code
         self.fill_phone_number()
         self.routes_page.check_way_to_pay_button_is_enabled()
+        assert self.routes_page.is_way_to_pay_button_enabled()
         self.routes_page.check_text_way_to_pay_button()
         self.routes_page.click_way_to_pay_button()
         time.sleep(1)
@@ -98,20 +101,20 @@ class TestUrbanRoutes:
     def write_message_to_driver(self):
         comment_to_the_driver = data.message_for_driver
         self.add_credit_card()
+        assert self.routes_page.is_enter_comment_to_the_driver_button_enabled()
         self.routes_page.set_enter_comment_to_the_driver(comment_to_the_driver)
 
     def request_blankets_and_scarves(self):
         self.write_message_to_driver()
         self.routes_page.check_blankets_and_scarves_is_present()
-        self.routes_page.check_text_blankets_and_scarves()
         self.routes_page.check_switch_blankets_and_scarves_is_disabled()
         self.routes_page.click_activate_switch_blankets_and_scarves()
         self.routes_page.check_switch_blankets_and_scarves_is_enabled()
+
     def order_2_ice_creams(self):
         self.request_blankets_and_scarves()
-        self.routes_page.check_text_ice_cream_n0()
+        assert self.routes_page.check_text_ice_cream_n0(), f'El texto del campo helado no coincide'
         self.routes_page.click_add_ice_cream()
-        self.routes_page.check_text_ice_cream_n2()
 
     def modal_appears_for_taxi_search(self):
         self.request_blankets_and_scarves()
@@ -123,34 +126,44 @@ class TestUrbanRoutes:
 
     def wait_for_driver_info_in_modal(self):
         self.modal_appears_for_taxi_search()
-        time.sleep(35)
+        time.sleep(40)
 
     def test_configure_address(self):
         self.configure_address()
+        assert self.routes_page.get_from() == data.address_from
+        assert self.routes_page.get_to() == data.address_to
 
     def test_select_comfort_rate(self):
         self.select_comfort_rate()
+        assert EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[1]'))
 
     def test_fill_phone_number(self):
         self.fill_phone_number()
+        assert self.routes_page.is_phone_number_field_enabled()
 
     def test_add_credit_card(self):
         self.add_credit_card()
+        assert self.routes_page.is_way_to_pay_button_enabled()
 
     def test_write_message_to_driver(self):
         self.write_message_to_driver()
+        assert self.routes_page.is_enter_comment_to_the_driver_button_enabled()
 
     def test_request_blankets_and_scarves(self):
         self.request_blankets_and_scarves()
+        assert self.routes_page.check_text_blankets_and_scarves(), f'El texto del campo mantas no coincide'
 
     def test_order_2_ice_creams(self):
         self.order_2_ice_creams()
+        assert self.routes_page.check_text_ice_cream_n2(), f'El texto del campo helado no coincide'
 
     def test_modal_appears_for_taxi_search(self):
         self.modal_appears_for_taxi_search()
+        assert self.routes_page.check_order_a_taxi_button_is_enabled()
 
     def test_wait_for_driver_info_in_modal(self):
         self.wait_for_driver_info_in_modal()
+        assert self.driver.find_element(*selector.modal_searching).text.startswith('El conductor llegará en')
 
     @classmethod
     def teardown_class(cls):
